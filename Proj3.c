@@ -113,12 +113,12 @@ void ReadPassword(unsigned char *inputPassword) {
     passwordString[PASSWORD_LENGTH] = '\0'; // Null terminator
     lcd_puts(passwordString); // Display the password string
 } else if (key == 'B') { // Delete the previous value
-                if (passwordIndex > 0) {
-                    passwordIndex--;
-                    lcd_comdata(0xc0 + passwordIndex, 0); // Move cursor to the previous position
-                    lcd_puts(" "); // Clear the asterisk
-                }
-            } else if (key == 'C') { // Clear all input values
+    if (passwordIndex > 0) {
+        passwordIndex--;
+        lcd_comdata(0xc0 + passwordIndex, 0); // Move cursor to the previous position
+        lcd_puts(" "); // Clear the digit
+    }
+} else if (key == 'C') { // Clear all input values
                 passwordIndex = 0;
                 for (int j = 0; j < PASSWORD_LENGTH; j++) {
                     lcd_comdata(0xc0 + j, 0); // Move cursor to each position
