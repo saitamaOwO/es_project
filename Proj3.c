@@ -105,10 +105,14 @@ void ReadPassword(unsigned char *inputPassword) {
                 // Display asterisk for each entered digit
                 lcd_comdata(0xc0 + passwordIndex - 1, 0); // Move cursor to the next position
                 lcd_puts("*");
-            } else if (key == 'A') { // Display the password inputed
-                lcd_comdata(0xc0, 0); // Move cursor to the start
-                lcd_puts(inputPassword);
-            } else if (key == 'B') { // Delete the previous value
+            } else if (key == 'A') { // Display the password inputted
+    unsigned char passwordString[PASSWORD_LENGTH + 1]; // Add 1 for null terminator
+    for (int j = 0; j < PASSWORD_LENGTH; j++) {
+        passwordString[j] = inputPassword[j] + '0'; // Convert int to char
+    }
+    passwordString[PASSWORD_LENGTH] = '\0'; // Null terminator
+    lcd_puts(passwordString); // Display the password string
+} else if (key == 'B') { // Delete the previous value
                 if (passwordIndex > 0) {
                     passwordIndex--;
                     lcd_comdata(0xc0 + passwordIndex, 0); // Move cursor to the previous position
